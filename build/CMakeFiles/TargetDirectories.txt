@@ -1,0 +1,5 @@
+/Users/wang/projects/mystd/build/CMakeFiles/edit_cache.dir
+/Users/wang/projects/mystd/build/CMakeFiles/rebuild_cache.dir
+/Users/wang/projects/mystd/build/tests/CMakeFiles/tests.dir
+/Users/wang/projects/mystd/build/tests/CMakeFiles/edit_cache.dir
+/Users/wang/projects/mystd/build/tests/CMakeFiles/rebuild_cache.dir
