@@ -1,7 +1,7 @@
 [
 {
   "directory": "/Users/wang/projects/mystd/build/tests",
-  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/wang/projects/mystd/include  -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.2.sdk -mmacosx-version-min=15.7 -o CMakeFiles/tests.dir/vector_t.cpp.o -c /Users/wang/projects/mystd/tests/vector_t.cpp",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/wang/projects/mystd/include -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.2.sdk -mmacosx-version-min=15.7 -o CMakeFiles/tests.dir/vector_t.cpp.o -c /Users/wang/projects/mystd/tests/vector_t.cpp",
   "file": "/Users/wang/projects/mystd/tests/vector_t.cpp",
   "output": "tests/CMakeFiles/tests.dir/vector_t.cpp.o"
 }
