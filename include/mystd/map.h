@@ -6,7 +6,7 @@ template <typename T>
 concept Hashable = requires(T key) { std::hash<T>{}(key); };
 
 /*lets do chaining use hashable concept*/
-/*work on custom allocator for begin and end*/
+/*work on custom iterator for begin and end*/
 template <Hashable Key, typename Value>
 class chash_map {
     struct node_chain {
