@@ -49,5 +49,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "tests/CMakeFiles/tests.dir/DependInfo.cmake"
+  "tests/CMakeFiles/vector_test.dir/DependInfo.cmake"
+  "tests/CMakeFiles/alloc_test.dir/DependInfo.cmake"
   )

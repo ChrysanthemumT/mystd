@@ -117,25 +117,63 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-tests/CMakeFiles/tests.dir/rule:
-	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/tests.dir/rule
-.PHONY : tests/CMakeFiles/tests.dir/rule
+tests/CMakeFiles/vector_test.dir/rule:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/vector_test.dir/rule
+.PHONY : tests/CMakeFiles/vector_test.dir/rule
 
 # Convenience name for target.
-tests: tests/CMakeFiles/tests.dir/rule
-.PHONY : tests
+vector_test: tests/CMakeFiles/vector_test.dir/rule
+.PHONY : vector_test
 
 # fast build rule for target.
-tests/fast:
-	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/tests.dir/build.make tests/CMakeFiles/tests.dir/build
-.PHONY : tests/fast
+vector_test/fast:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/vector_test.dir/build.make tests/CMakeFiles/vector_test.dir/build
+.PHONY : vector_test/fast
+
+# Convenience name for target.
+tests/CMakeFiles/alloc_test.dir/rule:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/alloc_test.dir/rule
+.PHONY : tests/CMakeFiles/alloc_test.dir/rule
+
+# Convenience name for target.
+alloc_test: tests/CMakeFiles/alloc_test.dir/rule
+.PHONY : alloc_test
+
+# fast build rule for target.
+alloc_test/fast:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/alloc_test.dir/build.make tests/CMakeFiles/alloc_test.dir/build
+.PHONY : alloc_test/fast
+
+allocator_t.o: allocator_t.cpp.o
+.PHONY : allocator_t.o
+
+# target to build an object file
+allocator_t.cpp.o:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/alloc_test.dir/build.make tests/CMakeFiles/alloc_test.dir/allocator_t.cpp.o
+.PHONY : allocator_t.cpp.o
+
+allocator_t.i: allocator_t.cpp.i
+.PHONY : allocator_t.i
+
+# target to preprocess a source file
+allocator_t.cpp.i:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/alloc_test.dir/build.make tests/CMakeFiles/alloc_test.dir/allocator_t.cpp.i
+.PHONY : allocator_t.cpp.i
+
+allocator_t.s: allocator_t.cpp.s
+.PHONY : allocator_t.s
+
+# target to generate assembly for a file
+allocator_t.cpp.s:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/alloc_test.dir/build.make tests/CMakeFiles/alloc_test.dir/allocator_t.cpp.s
+.PHONY : allocator_t.cpp.s
 
 vector_t.o: vector_t.cpp.o
 .PHONY : vector_t.o
 
 # target to build an object file
 vector_t.cpp.o:
-	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/tests.dir/build.make tests/CMakeFiles/tests.dir/vector_t.cpp.o
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/vector_test.dir/build.make tests/CMakeFiles/vector_test.dir/vector_t.cpp.o
 .PHONY : vector_t.cpp.o
 
 vector_t.i: vector_t.cpp.i
@@ -143,7 +181,7 @@ vector_t.i: vector_t.cpp.i
 
 # target to preprocess a source file
 vector_t.cpp.i:
-	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/tests.dir/build.make tests/CMakeFiles/tests.dir/vector_t.cpp.i
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/vector_test.dir/build.make tests/CMakeFiles/vector_test.dir/vector_t.cpp.i
 .PHONY : vector_t.cpp.i
 
 vector_t.s: vector_t.cpp.s
@@ -151,7 +189,7 @@ vector_t.s: vector_t.cpp.s
 
 # target to generate assembly for a file
 vector_t.cpp.s:
-	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/tests.dir/build.make tests/CMakeFiles/tests.dir/vector_t.cpp.s
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/vector_test.dir/build.make tests/CMakeFiles/vector_test.dir/vector_t.cpp.s
 .PHONY : vector_t.cpp.s
 
 # Help Target
@@ -162,7 +200,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... tests"
+	@echo "... alloc_test"
+	@echo "... vector_test"
+	@echo "... allocator_t.o"
+	@echo "... allocator_t.i"
+	@echo "... allocator_t.s"
 	@echo "... vector_t.o"
 	@echo "... vector_t.i"
 	@echo "... vector_t.s"

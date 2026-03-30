@@ -12,7 +12,8 @@ class PoolAllocator {
         for (int i = 0; i < DPOOLSIZE - 1; ++i) {
             reinterpret_cast<Node_ *>(curr)->next =
                 reinterpret_cast<Node_ *>(curr + CHUNKSIZE);
-            curr = reinterpret_cast<Node_ *>(curr)->next;
+            curr = reinterpret_cast<std::byte *>(
+                reinterpret_cast<Node_ *>(curr)->next);
         }
         reinterpret_cast<Node_ *>(curr)->next = nullptr;
         free_list_ = reinterpret_cast<Node_ *>(buffer_);

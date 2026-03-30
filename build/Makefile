@@ -117,17 +117,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named tests
+# Target rules for targets named vector_test
 
 # Build rule for target.
-tests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests
-.PHONY : tests
+vector_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vector_test
+.PHONY : vector_test
 
 # fast build rule for target.
-tests/fast:
-	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/tests.dir/build.make tests/CMakeFiles/tests.dir/build
-.PHONY : tests/fast
+vector_test/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/vector_test.dir/build.make tests/CMakeFiles/vector_test.dir/build
+.PHONY : vector_test/fast
+
+#=============================================================================
+# Target rules for targets named alloc_test
+
+# Build rule for target.
+alloc_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 alloc_test
+.PHONY : alloc_test
+
+# fast build rule for target.
+alloc_test/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/alloc_test.dir/build.make tests/CMakeFiles/alloc_test.dir/build
+.PHONY : alloc_test/fast
 
 # Help Target
 help:
@@ -137,7 +150,8 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... tests"
+	@echo "... alloc_test"
+	@echo "... vector_test"
 .PHONY : help
 
 
