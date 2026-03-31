@@ -3,10 +3,15 @@
 #include <utility>
 
 namespace mystd {
+// work on propagating on move, copy, swap
+// might work on nesting
 template <typename T, std::size_t DPOOLSIZE = 40>
 class PoolAllocator {
   public:
+    // this is important for alloc_traits
     using value_type = T;
+    using Alloc = PoolAllocator<T>;
+    // using propagate_on_container_move_assignment = true_type;
     PoolAllocator() {
         auto curr = buffer_;
         for (int i = 0; i < DPOOLSIZE - 1; ++i) {
@@ -31,6 +36,7 @@ class PoolAllocator {
         free_list_ = free_list_->next;
         return alloc;
     }
+    // these can be maintained by allocator traits
     void destroy(T *alloc) {
         alloc->~T();
         deallocate(alloc);
@@ -38,6 +44,9 @@ class PoolAllocator {
     void deallocate(T *alloc) {
         reinterpret_cast<Node_ *>(alloc)->next = free_list_;
         free_list_ = reinterpret_cast<Node_ *>(alloc);
+    }
+    static Alloc select_on_container_copy_construction(const Alloc &alloc) {
+        return alloc;
     }
 
   private:
