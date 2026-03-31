@@ -144,6 +144,20 @@ alloc_test/fast:
 	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/alloc_test.dir/build.make tests/CMakeFiles/alloc_test.dir/build
 .PHONY : alloc_test/fast
 
+# Convenience name for target.
+tests/CMakeFiles/spsc_test.dir/rule:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/spsc_test.dir/rule
+.PHONY : tests/CMakeFiles/spsc_test.dir/rule
+
+# Convenience name for target.
+spsc_test: tests/CMakeFiles/spsc_test.dir/rule
+.PHONY : spsc_test
+
+# fast build rule for target.
+spsc_test/fast:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/spsc_test.dir/build.make tests/CMakeFiles/spsc_test.dir/build
+.PHONY : spsc_test/fast
+
 allocator_t.o: allocator_t.cpp.o
 .PHONY : allocator_t.o
 
@@ -167,6 +181,30 @@ allocator_t.s: allocator_t.cpp.s
 allocator_t.cpp.s:
 	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/alloc_test.dir/build.make tests/CMakeFiles/alloc_test.dir/allocator_t.cpp.s
 .PHONY : allocator_t.cpp.s
+
+spsc_t.o: spsc_t.cpp.o
+.PHONY : spsc_t.o
+
+# target to build an object file
+spsc_t.cpp.o:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/spsc_test.dir/build.make tests/CMakeFiles/spsc_test.dir/spsc_t.cpp.o
+.PHONY : spsc_t.cpp.o
+
+spsc_t.i: spsc_t.cpp.i
+.PHONY : spsc_t.i
+
+# target to preprocess a source file
+spsc_t.cpp.i:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/spsc_test.dir/build.make tests/CMakeFiles/spsc_test.dir/spsc_t.cpp.i
+.PHONY : spsc_t.cpp.i
+
+spsc_t.s: spsc_t.cpp.s
+.PHONY : spsc_t.s
+
+# target to generate assembly for a file
+spsc_t.cpp.s:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/spsc_test.dir/build.make tests/CMakeFiles/spsc_test.dir/spsc_t.cpp.s
+.PHONY : spsc_t.cpp.s
 
 vector_t.o: vector_t.cpp.o
 .PHONY : vector_t.o
@@ -201,10 +239,14 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... alloc_test"
+	@echo "... spsc_test"
 	@echo "... vector_test"
 	@echo "... allocator_t.o"
 	@echo "... allocator_t.i"
 	@echo "... allocator_t.s"
+	@echo "... spsc_t.o"
+	@echo "... spsc_t.i"
+	@echo "... spsc_t.s"
 	@echo "... vector_t.o"
 	@echo "... vector_t.i"
 	@echo "... vector_t.s"

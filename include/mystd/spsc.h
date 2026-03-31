@@ -21,7 +21,7 @@ class spsc {
         auto tail_tmp = tail_.load(std::memory_order_relaxed);
         if (head_tmp == tail_tmp)
             return false;
-        out = reinterpret_cast<T *>(buffer_ + tail_tmp * sizeof(T));
+        out = *reinterpret_cast<T *>(buffer_ + tail_tmp * sizeof(T));
         std::size_t new_tail = (tail_tmp + 1) % N;
         tail_.store(new_tail, std::memory_order_release);
         return true;
@@ -33,6 +33,16 @@ class spsc {
             tail_tmp = tail_.load(std::memory_order_acquire);
         ;
         ::new (buffer_ + head_tmp * sizeof(T)) T(std::move(item));
+        std::size_t head_new = (head_tmp + 1) % N;
+        head_.store(head_new, std::memory_order_release);
+    }
+    void push(const T &item) {
+        auto tail_tmp = tail_.load(std::memory_order_acquire);
+        auto head_tmp = head_.load(std::memory_order_relaxed);
+        while ((head_tmp + 1) % N == tail_tmp)
+            tail_tmp = tail_.load(std::memory_order_acquire);
+        ;
+        ::new (buffer_ + head_tmp * sizeof(T)) T(item);
         std::size_t head_new = (head_tmp + 1) % N;
         head_.store(head_new, std::memory_order_release);
     }

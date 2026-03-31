@@ -142,6 +142,19 @@ alloc_test/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/alloc_test.dir/build.make tests/CMakeFiles/alloc_test.dir/build
 .PHONY : alloc_test/fast
 
+#=============================================================================
+# Target rules for targets named spsc_test
+
+# Build rule for target.
+spsc_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 spsc_test
+.PHONY : spsc_test
+
+# fast build rule for target.
+spsc_test/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/spsc_test.dir/build.make tests/CMakeFiles/spsc_test.dir/build
+.PHONY : spsc_test/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -151,6 +164,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... alloc_test"
+	@echo "... spsc_test"
 	@echo "... vector_test"
 .PHONY : help
 
