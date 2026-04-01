@@ -6,7 +6,8 @@
 
 namespace mystd {
 
-template <typename T> class vector {
+template <typename T>
+class vector {
   public:
     vector() : size_(0), capacity_(0) {};
     /*constructor and assignments operators*/
@@ -84,7 +85,8 @@ template <typename T> class vector {
     }
     void pop_back() { --size_; }
 
-    template <typename... Args> void emplace_back(Args &&...args) {
+    template <typename... Args>
+    void emplace_back(Args &&...args) {
         if (size_ == capacity_)
             grow();
         // uses placement new
