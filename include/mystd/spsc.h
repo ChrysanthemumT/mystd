@@ -2,6 +2,7 @@
 #include <utility>
 
 namespace mystd {
+// lookup serialisation directly to buffer instead of having to copy buffers
 template <typename T, std::size_t N = 20>
 class spsc {
   public:

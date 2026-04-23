@@ -158,6 +158,20 @@ spsc_test/fast:
 	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/spsc_test.dir/build.make tests/CMakeFiles/spsc_test.dir/build
 .PHONY : spsc_test/fast
 
+# Convenience name for target.
+tests/CMakeFiles/mpmc_test.dir/rule:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/mpmc_test.dir/rule
+.PHONY : tests/CMakeFiles/mpmc_test.dir/rule
+
+# Convenience name for target.
+mpmc_test: tests/CMakeFiles/mpmc_test.dir/rule
+.PHONY : mpmc_test
+
+# fast build rule for target.
+mpmc_test/fast:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/mpmc_test.dir/build.make tests/CMakeFiles/mpmc_test.dir/build
+.PHONY : mpmc_test/fast
+
 allocator_t.o: allocator_t.cpp.o
 .PHONY : allocator_t.o
 
@@ -181,6 +195,30 @@ allocator_t.s: allocator_t.cpp.s
 allocator_t.cpp.s:
 	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/alloc_test.dir/build.make tests/CMakeFiles/alloc_test.dir/allocator_t.cpp.s
 .PHONY : allocator_t.cpp.s
+
+mpmc_t.o: mpmc_t.cpp.o
+.PHONY : mpmc_t.o
+
+# target to build an object file
+mpmc_t.cpp.o:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/mpmc_test.dir/build.make tests/CMakeFiles/mpmc_test.dir/mpmc_t.cpp.o
+.PHONY : mpmc_t.cpp.o
+
+mpmc_t.i: mpmc_t.cpp.i
+.PHONY : mpmc_t.i
+
+# target to preprocess a source file
+mpmc_t.cpp.i:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/mpmc_test.dir/build.make tests/CMakeFiles/mpmc_test.dir/mpmc_t.cpp.i
+.PHONY : mpmc_t.cpp.i
+
+mpmc_t.s: mpmc_t.cpp.s
+.PHONY : mpmc_t.s
+
+# target to generate assembly for a file
+mpmc_t.cpp.s:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/mpmc_test.dir/build.make tests/CMakeFiles/mpmc_test.dir/mpmc_t.cpp.s
+.PHONY : mpmc_t.cpp.s
 
 spsc_t.o: spsc_t.cpp.o
 .PHONY : spsc_t.o
@@ -239,11 +277,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... alloc_test"
+	@echo "... mpmc_test"
 	@echo "... spsc_test"
 	@echo "... vector_test"
 	@echo "... allocator_t.o"
 	@echo "... allocator_t.i"
 	@echo "... allocator_t.s"
+	@echo "... mpmc_t.o"
+	@echo "... mpmc_t.i"
+	@echo "... mpmc_t.s"
 	@echo "... spsc_t.o"
 	@echo "... spsc_t.i"
 	@echo "... spsc_t.s"

@@ -16,5 +16,11 @@
   "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/wang/projects/mystd/include -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.2.sdk -mmacosx-version-min=15.7 -o CMakeFiles/spsc_test.dir/spsc_t.cpp.o -c /Users/wang/projects/mystd/tests/spsc_t.cpp",
   "file": "/Users/wang/projects/mystd/tests/spsc_t.cpp",
   "output": "tests/CMakeFiles/spsc_test.dir/spsc_t.cpp.o"
+},
+{
+  "directory": "/Users/wang/projects/mystd/build/tests",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/wang/projects/mystd/include -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.2.sdk -mmacosx-version-min=15.7 -o CMakeFiles/mpmc_test.dir/mpmc_t.cpp.o -c /Users/wang/projects/mystd/tests/mpmc_t.cpp",
+  "file": "/Users/wang/projects/mystd/tests/mpmc_t.cpp",
+  "output": "tests/CMakeFiles/mpmc_test.dir/mpmc_t.cpp.o"
 }
 ]

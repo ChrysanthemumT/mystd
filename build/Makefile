@@ -155,6 +155,19 @@ spsc_test/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/spsc_test.dir/build.make tests/CMakeFiles/spsc_test.dir/build
 .PHONY : spsc_test/fast
 
+#=============================================================================
+# Target rules for targets named mpmc_test
+
+# Build rule for target.
+mpmc_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mpmc_test
+.PHONY : mpmc_test
+
+# fast build rule for target.
+mpmc_test/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/mpmc_test.dir/build.make tests/CMakeFiles/mpmc_test.dir/build
+.PHONY : mpmc_test/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -164,6 +177,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... alloc_test"
+	@echo "... mpmc_test"
 	@echo "... spsc_test"
 	@echo "... vector_test"
 .PHONY : help

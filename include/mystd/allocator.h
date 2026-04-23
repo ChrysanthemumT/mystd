@@ -48,7 +48,7 @@ class PoolAllocator {
         free_list_ = free_list_->next;
         return alloc;
     }
-    // these can be maintained by allocator traits
+    // these can be maintained by allocator traits, just testing
     void destroy(T *alloc) {
         alloc->~T();
         deallocate(alloc);

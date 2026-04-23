@@ -6,18 +6,20 @@
 
 namespace mystd {
 
-template <typename T>
+template <typename T, typename Alloc = std::allocator<T>>
 class vector {
   public:
     vector() : size_(0), capacity_(0) {};
     /*constructor and assignments operators*/
     vector(std::size_t size) : size_(size), capacity_(size * 2) {
-        internal_array_ = new T[capacity_];
+        internal_array_ =
+            std::allocator_traits<Alloc>::allocate(alloc_, capacity_);
     }
     vector(const vector &other) {
         capacity_ = other.capacity_;
         size_ = other.size_;
-        internal_array_ = new T[capacity_];
+        internal_array_ =
+            std::allocator_traits<Alloc>::allocate(alloc_, capacity_);
         std::copy(other.internal_array_, other.internal_array_ + size_,
                   internal_array_);
     }
@@ -27,8 +29,10 @@ class vector {
         }
         capacity_ = other.capacity_;
         size_ = other.size_;
-        delete[] internal_array_;
-        internal_array_ = new T[capacity_];
+        std::allocator_traits<Alloc>::deallocate(alloc_, internal_array_,
+                                                 capacity_);
+        internal_array_ =
+            std::allocator_traits<Alloc>::allocate(alloc_, capacity_);
         std::copy(other.internal_array_, other.internal_array_ + size_,
                   internal_array_);
         return *this;
@@ -36,6 +40,7 @@ class vector {
     vector(vector &&other) {
         capacity_ = other.capacity_;
         size_ = other.size_;
+        alloc_ = other.alloc_;
         internal_array_ = std::exchange(other.internal_array_, nullptr);
         other.capacity_ = 0;
         other.size_ = 0;
@@ -47,7 +52,8 @@ class vector {
         }
         capacity_ = other.capacity_;
         size_ = other.size_;
-        delete[] internal_array_;
+        std::allocator_traits<Alloc>::deallocate(alloc_, internal_array_,
+                                                 capacity_);
         internal_array_ = std::exchange(other.internal_array_, nullptr);
         other.capacity_ = 0;
         other.size_ = 0;
@@ -57,7 +63,8 @@ class vector {
     vector(std::initializer_list<T> list) {
         size_ = list.size();
         capacity_ = size_ * 2;
-        internal_array_ = new T[capacity_];
+        internal_array_ =
+            std::allocator_traits<Alloc>::allocate(alloc_, capacity_);
         std::copy(list.begin(), list.end(), internal_array_);
     }
     /*core util*/
@@ -129,10 +136,12 @@ class vector {
     }
     void reserve(std::size_t new_capacity) {
         if (new_capacity > capacity_) {
-            T *tmp = new T[new_capacity];
+            auto tmp =
+                std::allocator_traits<Alloc>::allocate(alloc_, new_capacity);
             std::move(internal_array_, internal_array_ + size_, tmp);
+            std::allocator_traits<Alloc>::deallocate(alloc_, internal_array_,
+                                                     capacity_);
             capacity_ = new_capacity;
-            delete[] internal_array_;
             internal_array_ = tmp;
         }
     }
@@ -161,19 +170,25 @@ class vector {
     const T &back() const { return internal_array_[size_ - 1]; }
     T &front() { return internal_array_[0]; }
     T &back() { return internal_array_[size_ - 1]; }
-    ~vector() { delete[] internal_array_; }
+    ~vector() {
+        std::allocator_traits<Alloc>::deallocate(alloc_, internal_array_,
+                                                 capacity_);
+    }
 
   private:
+    Alloc alloc_;
     std::size_t capacity_;
     std::size_t size_;
     T *internal_array_;
     /*internal tools*/
     void grow() {
         // need to realloc
-        T *new_array_ = new T[(capacity_ + 1) * 2];
-        capacity_ = (capacity_ + 1) * 2;
+        auto new_array_ =
+            std::allocator_traits<Alloc>::allocate(alloc_, (capacity_ + 1) * 2);
         std::move(internal_array_, internal_array_ + size_, new_array_);
-        delete[] internal_array_;
+        std::allocator_traits<Alloc>::deallocate(alloc_, internal_array_,
+                                                 capacity_);
+        capacity_ = (capacity_ + 1) * 2;
         internal_array_ = new_array_;
     }
 };
