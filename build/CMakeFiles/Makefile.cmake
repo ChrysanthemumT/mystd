@@ -53,4 +53,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "tests/CMakeFiles/alloc_test.dir/DependInfo.cmake"
   "tests/CMakeFiles/spsc_test.dir/DependInfo.cmake"
   "tests/CMakeFiles/mpmc_test.dir/DependInfo.cmake"
+  "tests/CMakeFiles/thread_pool_test.dir/DependInfo.cmake"
+  "tests/CMakeFiles/lmax_disruptor_test.dir/DependInfo.cmake"
   )

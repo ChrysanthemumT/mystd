@@ -4,5 +4,7 @@
 /Users/wang/projects/mystd/build/tests/CMakeFiles/alloc_test.dir
 /Users/wang/projects/mystd/build/tests/CMakeFiles/spsc_test.dir
 /Users/wang/projects/mystd/build/tests/CMakeFiles/mpmc_test.dir
+/Users/wang/projects/mystd/build/tests/CMakeFiles/thread_pool_test.dir
+/Users/wang/projects/mystd/build/tests/CMakeFiles/lmax_disruptor_test.dir
 /Users/wang/projects/mystd/build/tests/CMakeFiles/edit_cache.dir
 /Users/wang/projects/mystd/build/tests/CMakeFiles/rebuild_cache.dir

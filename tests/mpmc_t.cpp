@@ -24,7 +24,8 @@ int main() {
             int start = p * PER_PRODUCER;
             int end = start + PER_PRODUCER;
             for (int i = start; i < end; i++) {
-                while (!queue.try_push(i))
+                int value = i;
+                while (!queue.try_push(std::move(value)))
                     ;
                 produced.fetch_add(1);
             }

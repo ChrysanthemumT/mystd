@@ -172,6 +172,34 @@ mpmc_test/fast:
 	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/mpmc_test.dir/build.make tests/CMakeFiles/mpmc_test.dir/build
 .PHONY : mpmc_test/fast
 
+# Convenience name for target.
+tests/CMakeFiles/thread_pool_test.dir/rule:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/thread_pool_test.dir/rule
+.PHONY : tests/CMakeFiles/thread_pool_test.dir/rule
+
+# Convenience name for target.
+thread_pool_test: tests/CMakeFiles/thread_pool_test.dir/rule
+.PHONY : thread_pool_test
+
+# fast build rule for target.
+thread_pool_test/fast:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/thread_pool_test.dir/build.make tests/CMakeFiles/thread_pool_test.dir/build
+.PHONY : thread_pool_test/fast
+
+# Convenience name for target.
+tests/CMakeFiles/lmax_disruptor_test.dir/rule:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/lmax_disruptor_test.dir/rule
+.PHONY : tests/CMakeFiles/lmax_disruptor_test.dir/rule
+
+# Convenience name for target.
+lmax_disruptor_test: tests/CMakeFiles/lmax_disruptor_test.dir/rule
+.PHONY : lmax_disruptor_test
+
+# fast build rule for target.
+lmax_disruptor_test/fast:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/lmax_disruptor_test.dir/build.make tests/CMakeFiles/lmax_disruptor_test.dir/build
+.PHONY : lmax_disruptor_test/fast
+
 allocator_t.o: allocator_t.cpp.o
 .PHONY : allocator_t.o
 
@@ -195,6 +223,30 @@ allocator_t.s: allocator_t.cpp.s
 allocator_t.cpp.s:
 	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/alloc_test.dir/build.make tests/CMakeFiles/alloc_test.dir/allocator_t.cpp.s
 .PHONY : allocator_t.cpp.s
+
+lmax_disruptor_t.o: lmax_disruptor_t.cpp.o
+.PHONY : lmax_disruptor_t.o
+
+# target to build an object file
+lmax_disruptor_t.cpp.o:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/lmax_disruptor_test.dir/build.make tests/CMakeFiles/lmax_disruptor_test.dir/lmax_disruptor_t.cpp.o
+.PHONY : lmax_disruptor_t.cpp.o
+
+lmax_disruptor_t.i: lmax_disruptor_t.cpp.i
+.PHONY : lmax_disruptor_t.i
+
+# target to preprocess a source file
+lmax_disruptor_t.cpp.i:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/lmax_disruptor_test.dir/build.make tests/CMakeFiles/lmax_disruptor_test.dir/lmax_disruptor_t.cpp.i
+.PHONY : lmax_disruptor_t.cpp.i
+
+lmax_disruptor_t.s: lmax_disruptor_t.cpp.s
+.PHONY : lmax_disruptor_t.s
+
+# target to generate assembly for a file
+lmax_disruptor_t.cpp.s:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/lmax_disruptor_test.dir/build.make tests/CMakeFiles/lmax_disruptor_test.dir/lmax_disruptor_t.cpp.s
+.PHONY : lmax_disruptor_t.cpp.s
 
 mpmc_t.o: mpmc_t.cpp.o
 .PHONY : mpmc_t.o
@@ -244,6 +296,30 @@ spsc_t.cpp.s:
 	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/spsc_test.dir/build.make tests/CMakeFiles/spsc_test.dir/spsc_t.cpp.s
 .PHONY : spsc_t.cpp.s
 
+thread_pool_t.o: thread_pool_t.cpp.o
+.PHONY : thread_pool_t.o
+
+# target to build an object file
+thread_pool_t.cpp.o:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/thread_pool_test.dir/build.make tests/CMakeFiles/thread_pool_test.dir/thread_pool_t.cpp.o
+.PHONY : thread_pool_t.cpp.o
+
+thread_pool_t.i: thread_pool_t.cpp.i
+.PHONY : thread_pool_t.i
+
+# target to preprocess a source file
+thread_pool_t.cpp.i:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/thread_pool_test.dir/build.make tests/CMakeFiles/thread_pool_test.dir/thread_pool_t.cpp.i
+.PHONY : thread_pool_t.cpp.i
+
+thread_pool_t.s: thread_pool_t.cpp.s
+.PHONY : thread_pool_t.s
+
+# target to generate assembly for a file
+thread_pool_t.cpp.s:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/thread_pool_test.dir/build.make tests/CMakeFiles/thread_pool_test.dir/thread_pool_t.cpp.s
+.PHONY : thread_pool_t.cpp.s
+
 vector_t.o: vector_t.cpp.o
 .PHONY : vector_t.o
 
@@ -277,18 +353,26 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... alloc_test"
+	@echo "... lmax_disruptor_test"
 	@echo "... mpmc_test"
 	@echo "... spsc_test"
+	@echo "... thread_pool_test"
 	@echo "... vector_test"
 	@echo "... allocator_t.o"
 	@echo "... allocator_t.i"
 	@echo "... allocator_t.s"
+	@echo "... lmax_disruptor_t.o"
+	@echo "... lmax_disruptor_t.i"
+	@echo "... lmax_disruptor_t.s"
 	@echo "... mpmc_t.o"
 	@echo "... mpmc_t.i"
 	@echo "... mpmc_t.s"
 	@echo "... spsc_t.o"
 	@echo "... spsc_t.i"
 	@echo "... spsc_t.s"
+	@echo "... thread_pool_t.o"
+	@echo "... thread_pool_t.i"
+	@echo "... thread_pool_t.s"
 	@echo "... vector_t.o"
 	@echo "... vector_t.i"
 	@echo "... vector_t.s"

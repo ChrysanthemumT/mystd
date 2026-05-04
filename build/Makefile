@@ -168,6 +168,32 @@ mpmc_test/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/mpmc_test.dir/build.make tests/CMakeFiles/mpmc_test.dir/build
 .PHONY : mpmc_test/fast
 
+#=============================================================================
+# Target rules for targets named thread_pool_test
+
+# Build rule for target.
+thread_pool_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 thread_pool_test
+.PHONY : thread_pool_test
+
+# fast build rule for target.
+thread_pool_test/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/thread_pool_test.dir/build.make tests/CMakeFiles/thread_pool_test.dir/build
+.PHONY : thread_pool_test/fast
+
+#=============================================================================
+# Target rules for targets named lmax_disruptor_test
+
+# Build rule for target.
+lmax_disruptor_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lmax_disruptor_test
+.PHONY : lmax_disruptor_test
+
+# fast build rule for target.
+lmax_disruptor_test/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/lmax_disruptor_test.dir/build.make tests/CMakeFiles/lmax_disruptor_test.dir/build
+.PHONY : lmax_disruptor_test/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -177,8 +203,10 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... alloc_test"
+	@echo "... lmax_disruptor_test"
 	@echo "... mpmc_test"
 	@echo "... spsc_test"
+	@echo "... thread_pool_test"
 	@echo "... vector_test"
 .PHONY : help
 

@@ -2,10 +2,12 @@
 #include <utility>
 
 namespace mystd {
-template <typename... Args> class variant {
+template <typename... Args>
+class variant {
   public:
     variant() : index_(0) {}
-    template <typename T> variant(T &&item) {
+    template <typename T>
+    variant(T &&item) {
         new (field_) T(std::forward<T>(item));
         index_ = index_of<T, Args...>();
     };
@@ -57,7 +59,8 @@ template <typename... Args> class variant {
     }
     /*core*/
     // used to pass a callable to use field_ value
-    template <typename Visitor> void visit(Visitor &&v) {
+    template <typename Visitor>
+    void visit(Visitor &&v) {
         using Fn = void (*)(void *);
         static Fn table[]{[field_ = field_](void *callable) {
             callable(*reinterpret_cast<Args *>(field_));
@@ -84,5 +87,6 @@ template <typename... Args> class variant {
         }
     }
 };
-template <typename T, typename... Args> T get(const variant<Args...> &v) {};
+template <typename T, typename... Args>
+T get(const variant<Args...> &v) {};
 }; // namespace mystd

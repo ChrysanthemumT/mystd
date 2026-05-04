@@ -34,7 +34,7 @@ class mpmc {
             }
         }
     }
-    bool try_push(T &value) {
+    bool try_push(T &&value) {
         auto tmp_head = head.load(std::memory_order_relaxed);
         while (true) {
             auto seq = buffer_[tmp_head % N].sequence_num.load(
@@ -61,7 +61,6 @@ class mpmc {
   private:
     struct Slot {
         T data;
-        // verify every value seen exactly once
         std::atomic<size_t> sequence_num;
     };
     alignas(64) Slot buffer_[N];

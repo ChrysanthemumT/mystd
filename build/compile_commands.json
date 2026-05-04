@@ -22,5 +22,17 @@
   "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/wang/projects/mystd/include -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.2.sdk -mmacosx-version-min=15.7 -o CMakeFiles/mpmc_test.dir/mpmc_t.cpp.o -c /Users/wang/projects/mystd/tests/mpmc_t.cpp",
   "file": "/Users/wang/projects/mystd/tests/mpmc_t.cpp",
   "output": "tests/CMakeFiles/mpmc_test.dir/mpmc_t.cpp.o"
+},
+{
+  "directory": "/Users/wang/projects/mystd/build/tests",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/wang/projects/mystd/include -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.2.sdk -mmacosx-version-min=15.7 -o CMakeFiles/thread_pool_test.dir/thread_pool_t.cpp.o -c /Users/wang/projects/mystd/tests/thread_pool_t.cpp",
+  "file": "/Users/wang/projects/mystd/tests/thread_pool_t.cpp",
+  "output": "tests/CMakeFiles/thread_pool_test.dir/thread_pool_t.cpp.o"
+},
+{
+  "directory": "/Users/wang/projects/mystd/build/tests",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/wang/projects/mystd/include -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.2.sdk -mmacosx-version-min=15.7 -o CMakeFiles/lmax_disruptor_test.dir/lmax_disruptor_t.cpp.o -c /Users/wang/projects/mystd/tests/lmax_disruptor_t.cpp",
+  "file": "/Users/wang/projects/mystd/tests/lmax_disruptor_t.cpp",
+  "output": "tests/CMakeFiles/lmax_disruptor_test.dir/lmax_disruptor_t.cpp.o"
 }
 ]
