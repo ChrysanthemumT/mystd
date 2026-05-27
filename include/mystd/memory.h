@@ -1,8 +1,10 @@
+#pragma once
 #include <iostream>
 namespace mystd {
 
-template <typename T> class unique_ptr {
-  public:
+template <typename T>
+class unique_ptr {
+public:
     /*constructors and assignment operators*/
     unique_ptr(T *item) { internal_ptr_ = item; };
     unique_ptr(const unique_ptr &other) = delete;
@@ -26,17 +28,18 @@ template <typename T> class unique_ptr {
     T *get() const { return internal_ptr_; }
     ~unique_ptr() { delete internal_ptr_; };
 
-  private:
+private:
     T *internal_ptr_;
 };
 
-template <typename T> class shared_ptr {
+template <typename T>
+class shared_ptr {
     struct control_block {
         std::atomic<std::size_t> reference_count_;
         T *item_;
     };
 
-  public:
+public:
     shared_ptr(T *item) {
         cb_ptr_ = new control_block;
         cb_ptr_->reference_count_ = 1;
@@ -81,7 +84,7 @@ template <typename T> class shared_ptr {
         }
     }
 
-  private:
+private:
     struct control_block *cb_ptr_;
     void release() {
         if (!cb_ptr_)
