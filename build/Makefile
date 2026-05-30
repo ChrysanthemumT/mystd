@@ -194,6 +194,19 @@ lmax_disruptor_test/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/lmax_disruptor_test.dir/build.make tests/CMakeFiles/lmax_disruptor_test.dir/build
 .PHONY : lmax_disruptor_test/fast
 
+#=============================================================================
+# Target rules for targets named robin_map_test
+
+# Build rule for target.
+robin_map_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robin_map_test
+.PHONY : robin_map_test
+
+# fast build rule for target.
+robin_map_test/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/robin_map_test.dir/build.make tests/CMakeFiles/robin_map_test.dir/build
+.PHONY : robin_map_test/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -205,6 +218,7 @@ help:
 	@echo "... alloc_test"
 	@echo "... lmax_disruptor_test"
 	@echo "... mpmc_test"
+	@echo "... robin_map_test"
 	@echo "... spsc_test"
 	@echo "... thread_pool_test"
 	@echo "... vector_test"

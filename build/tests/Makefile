@@ -200,6 +200,20 @@ lmax_disruptor_test/fast:
 	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/lmax_disruptor_test.dir/build.make tests/CMakeFiles/lmax_disruptor_test.dir/build
 .PHONY : lmax_disruptor_test/fast
 
+# Convenience name for target.
+tests/CMakeFiles/robin_map_test.dir/rule:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/robin_map_test.dir/rule
+.PHONY : tests/CMakeFiles/robin_map_test.dir/rule
+
+# Convenience name for target.
+robin_map_test: tests/CMakeFiles/robin_map_test.dir/rule
+.PHONY : robin_map_test
+
+# fast build rule for target.
+robin_map_test/fast:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/robin_map_test.dir/build.make tests/CMakeFiles/robin_map_test.dir/build
+.PHONY : robin_map_test/fast
+
 allocator_t.o: allocator_t.cpp.o
 .PHONY : allocator_t.o
 
@@ -271,6 +285,30 @@ mpmc_t.s: mpmc_t.cpp.s
 mpmc_t.cpp.s:
 	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/mpmc_test.dir/build.make tests/CMakeFiles/mpmc_test.dir/mpmc_t.cpp.s
 .PHONY : mpmc_t.cpp.s
+
+robin_map_t.o: robin_map_t.cpp.o
+.PHONY : robin_map_t.o
+
+# target to build an object file
+robin_map_t.cpp.o:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/robin_map_test.dir/build.make tests/CMakeFiles/robin_map_test.dir/robin_map_t.cpp.o
+.PHONY : robin_map_t.cpp.o
+
+robin_map_t.i: robin_map_t.cpp.i
+.PHONY : robin_map_t.i
+
+# target to preprocess a source file
+robin_map_t.cpp.i:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/robin_map_test.dir/build.make tests/CMakeFiles/robin_map_test.dir/robin_map_t.cpp.i
+.PHONY : robin_map_t.cpp.i
+
+robin_map_t.s: robin_map_t.cpp.s
+.PHONY : robin_map_t.s
+
+# target to generate assembly for a file
+robin_map_t.cpp.s:
+	cd /Users/wang/projects/mystd/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/robin_map_test.dir/build.make tests/CMakeFiles/robin_map_test.dir/robin_map_t.cpp.s
+.PHONY : robin_map_t.cpp.s
 
 spsc_t.o: spsc_t.cpp.o
 .PHONY : spsc_t.o
@@ -355,6 +393,7 @@ help:
 	@echo "... alloc_test"
 	@echo "... lmax_disruptor_test"
 	@echo "... mpmc_test"
+	@echo "... robin_map_test"
 	@echo "... spsc_test"
 	@echo "... thread_pool_test"
 	@echo "... vector_test"
@@ -367,6 +406,9 @@ help:
 	@echo "... mpmc_t.o"
 	@echo "... mpmc_t.i"
 	@echo "... mpmc_t.s"
+	@echo "... robin_map_t.o"
+	@echo "... robin_map_t.i"
+	@echo "... robin_map_t.s"
 	@echo "... spsc_t.o"
 	@echo "... spsc_t.i"
 	@echo "... spsc_t.s"

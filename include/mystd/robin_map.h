@@ -7,6 +7,7 @@
 #include <memory>
 // implementation following Tessil/robin-map
 
+namespace mystd {
 template <typename Key, typename T, typename Hash = std::hash<Key>,
           typename Alloc = mystd::PoolAllocator<std::pair<Key, T>>>
 class rmap {
@@ -25,7 +26,7 @@ private:
             return *std::launder(reinterpret_cast<KVpair *>(kvpair_));
         }
         const KVpair &value() const {
-            return *std::launder(reinterpret_cast<KVpair *>(kvpair_));
+            return *std::launder(reinterpret_cast<const KVpair *>(kvpair_));
         }
         std::ptrdiff_t distance_from_ideal() { return distance_from_ideal_; }
         void clear() {
@@ -36,22 +37,26 @@ private:
         };
 
         void set_value_of_empty_bucket(std::ptrdiff_t dist_from_ideal_bucket,
-                                       KVpair &kvpair) {
+                                       const KVpair &kvpair) {
             ::new (kvpair_) KVpair{kvpair};
             distance_from_ideal_ = dist_from_ideal_bucket;
         }
+        void swap_value(std::ptrdiff_t &other_dfi, KVpair &other_kvpair) {
+            std::swap(distance_from_ideal_, other_dfi);
+            std::swap(value(), other_kvpair);
+        }
 
     private:
-        void destroy() { value()->~KVpair(); };
+        void destroy() { value().~KVpair(); };
         std::ptrdiff_t distance_from_ideal_;
         bool is_last_bucket_;
         alignas(KVpair) std::byte kvpair_[sizeof(KVpair)];
     };
     struct key_select {
-        Key &operator()(const KVpair &pair) { return pair.first; };
+        const Key &operator()(const KVpair &pair) { return pair.first; };
     };
     struct value_select {
-        Key &operator()(const KVpair &pair) { return pair.second; };
+        const Key &operator()(const KVpair &pair) { return pair.second; };
     };
 
     template <bool is_const = false>
@@ -63,12 +68,18 @@ private:
         using value_type =
             std::conditional_t<is_const, const typename rmap::KVpair,
                                typename rmap::KVpair>;
-        using pointer = typename rmap::KVpair *;
-        using reference = typename rmap::KVpair &;
+        using pointer =
+            std::conditional_t<is_const, const typename rmap::KVpair *,
+                               typename rmap::KVpair *>;
+        using reference =
+            std::conditional_t<is_const, const typename rmap::KVpair &,
+                               typename rmap::KVpair &>;
         using difference_type = std::ptrdiff_t;
         robin_iterator() = default;
-        reference operator*() { return bucket_->kvpair_; };
-        pointer operator->() { return std::addressof(bucket_->kvpair_); };
+        reference operator*() { return bucket_->value(); };
+        pointer operator->() { return std::addressof(bucket_->value()); };
+        reference operator*() const { return bucket_->value(); }
+        pointer operator->() const { return std::addressof(bucket_->value()); }
         robin_iterator &operator++() {
             while (true) {
                 if (bucket_->is_last_bucket_) {
@@ -81,8 +92,8 @@ private:
             }
         };
         robin_iterator &operator++(int) {
-            auto &tmp = *this;
-            ++bucket_;
+            auto tmp = *this;
+            ++(*this);
             return tmp;
         };
 
@@ -99,20 +110,34 @@ public:
     using iterator = robin_iterator<false>;
     std::pair<iterator, bool> insert(const Key &key, T value) {
         auto ihash = hash(key);
-        auto ibucket = bucket_from_hash(ihash);
+        std::size_t ibucket = bucket_from_hash(ihash);
         std::ptrdiff_t distance = 0;
-        while (distance <= ibucket.distance_from_ideal()) {
-            if (key_select(ibucket.value()) == key) {
-                return std::make_pair(robin_iterator(ibucket), false);
+        while (distance <= buckets_[ibucket].distance_from_ideal()) {
+            if (key_select{}(buckets_[ibucket].value()) == key) {
+                return std::make_pair(robin_iterator(&buckets_[ibucket]),
+                                      false);
             }
-            ibucket++;
+            ibucket = next_bucket(ibucket);
             distance++;
         };
-        // rehash for load?
-        // steal
+        if (buckets_[ibucket].empty()) {
+            buckets_[ibucket].set_value_of_empty_bucket(distance,
+                                                        KVpair{key, value});
+        } else {
+            steal(ibucket, distance, KVpair{key, value});
+        }
+        return std::make_pair(robin_iterator(&buckets_[ibucket]), true);
     };
-    T find(const Key &item) { find_help(item, hash(item)); };
-    void erase(const Key &item) { find_help(item, hash(item)); };
+    std::pair<const_iterator, bool> find(const Key &item) {
+        return find_help(item, hash(item));
+    };
+    bool erase(const Key &item) {
+        auto [iter, err] = find_help(item, hash(item));
+        if (!err)
+            return err;
+        erase_from_bucket(iter);
+        return true;
+    };
     Key *operator[](Key key);
 
 private:
@@ -125,18 +150,20 @@ private:
             return 0;
         return index;
     };
-    bucket &bucket_from_hash(std::size_t hash) { return buckets_[hash % SIZE]; }
-    const_iterator find_help(const Key &key, std::size_t hash) {
-        auto ibucket = robin_iterator<true>(bucket_from_hash(hash));
+    std::size_t bucket_from_hash(std::size_t hash) { return hash % SIZE; }
+    std::pair<const_iterator, bool> find_help(const Key &key,
+                                              std::size_t hash) {
+        auto ibucket = bucket_from_hash(hash);
         std::size_t distance = 0;
-        while (ibucket.distance_from_ideal() == -1 &&
-               distance <= ibucket.distance_from_ideal()) {
-            if (key == key_select(ibucket.value())) {
-                return ibucket;
+        while (distance <= buckets_[ibucket].distance_from_ideal()) {
+            if (key == key_select{}(buckets_[ibucket].value())) {
+                return std::make_pair(robin_iterator<true>(&buckets_[ibucket]),
+                                      true);
             }
-            ibucket++;
+            ibucket = next_bucket(ibucket);
             distance++;
         }
+        return std::make_pair(robin_iterator<true>(&buckets_[SIZE]), false);
     }
     void erase_from_bucket(const_iterator iter) {
         iter->clear();
@@ -144,7 +171,7 @@ private:
         std::size_t next = next_bucket(prev);
         while (buckets_[next].distance_from_ideal() > 0) {
             std::ptrdiff_t new_distance =
-                buckets_[next].dist_from_ideal_bucket() - 1;
+                buckets_[next].distance_from_ideal() - 1;
             buckets_[prev].set_value_of_empty_bucket(new_distance,
                                                      buckets_[next].value());
             buckets_[next].clear();
@@ -154,5 +181,19 @@ private:
     }
     bool rehash() {}
     std::size_t hash(Key key) { return Hash{}(key); }
-    void steal() {}
+    void steal(std::size_t ibucket, std::ptrdiff_t distance, KVpair kvpair) {
+        buckets_[ibucket].swap_value(distance, kvpair);
+        ibucket = next_bucket(ibucket);
+        distance++;
+        while (!buckets_[ibucket].empty()) {
+            if (distance > buckets_[ibucket].distance_from_ideal()) {
+                buckets_[ibucket].swap_value(distance, kvpair);
+                // add rehashing here?
+            }
+            distance++;
+            ibucket++;
+        }
+        buckets_[ibucket].set_value_of_empty_bucket(distance, kvpair);
+    }
 };
+}; // namespace mystd
