@@ -108,10 +108,12 @@ private:
 public:
     using const_iterator = const robin_iterator<true>;
     using iterator = robin_iterator<false>;
+    rmap() { buckets_[SIZE - 1].set_last_bucket(); }
     std::pair<iterator, bool> insert(const Key &key, T value) {
         auto ihash = hash(key);
         std::size_t ibucket = bucket_from_hash(ihash);
         std::ptrdiff_t distance = 0;
+        bool last_item_found = false;
         while (distance <= buckets_[ibucket].distance_from_ideal()) {
             if (key_select{}(buckets_[ibucket].value()) == key) {
                 return std::make_pair(robin_iterator(&buckets_[ibucket]),
@@ -120,6 +122,9 @@ public:
             ibucket = next_bucket(ibucket);
             distance++;
         };
+        if (ibucket == SIZE) {
+            return std::make_pair(end(), false);
+        }
         if (buckets_[ibucket].empty()) {
             buckets_[ibucket].set_value_of_empty_bucket(distance,
                                                         KVpair{key, value});
@@ -127,20 +132,30 @@ public:
             steal(ibucket, distance, KVpair{key, value});
         }
         return std::make_pair(robin_iterator(&buckets_[ibucket]), true);
-    };
+    }
     std::pair<const_iterator, bool> find(const Key &item) {
         return find_help(item, hash(item));
-    };
+    }
     bool erase(const Key &item) {
         auto [iter, err] = find_help(item, hash(item));
         if (!err)
             return err;
         erase_from_bucket(iter);
         return true;
+    }
+    T &operator[](Key key) {
+        auto [iter, inserted] = insert(key, T{});
+        return iter->second;
+    }
+    iterator begin() { return robin_iterator(&buckets_[0]); };
+    iterator end() { return robin_iterator(&buckets_[SIZE]); };
+    const_iterator begin() const { return robin_iterator<true>(&buckets_[0]); };
+    const_iterator end() const {
+        return robin_iterator<true>(&buckets_[SIZE]);
     };
-    Key *operator[](Key key);
 
 private:
+    Alloc alloc_;
     constexpr static std::size_t SIZE = 100;
     bucket buckets_[SIZE];
     std::size_t load_factor_;
@@ -179,7 +194,6 @@ private:
             next = next_bucket(next);
         };
     }
-    bool rehash() {}
     std::size_t hash(Key key) { return Hash{}(key); }
     void steal(std::size_t ibucket, std::ptrdiff_t distance, KVpair kvpair) {
         buckets_[ibucket].swap_value(distance, kvpair);
@@ -191,7 +205,7 @@ private:
                 // add rehashing here?
             }
             distance++;
-            ibucket++;
+            ibucket = next_bucket(ibucket);
         }
         buckets_[ibucket].set_value_of_empty_bucket(distance, kvpair);
     }

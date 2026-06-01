@@ -6,11 +6,10 @@
 
 namespace mystd {
 
-// use std::allocator_traits to alloc, dealloc, construct and destroy
 // fix std::copy and std::move to use uninitialized forms
 template <typename t, typename Alloc = std::allocator<t>>
 class vector {
-  public:
+public:
     vector() : size_(0), capacity_(0) {
         internal_array_ =
             std::allocator_traits<Alloc>::allocate(alloc_, capacity_);
@@ -208,7 +207,7 @@ class vector {
                                                  capacity_);
     }
 
-  private:
+private:
     Alloc alloc_;
     std::size_t capacity_;
     std::size_t size_;
