@@ -7,7 +7,7 @@ namespace mystd {
 // might work on nesting
 template <typename T, std::size_t DPOOLSIZE = 40>
 class PoolAllocator {
-  public:
+public:
     // this is important for alloc_traits
     using value_type = T;
     using Alloc = PoolAllocator<T>;
@@ -69,7 +69,7 @@ class PoolAllocator {
         return alloc;
     }
 
-  private:
+private:
     struct Node_ {
         Node_ *next;
     };
@@ -84,7 +84,8 @@ class PoolAllocator {
     Node_ *free_list_;
     Node_List_ *node_list_;
     void create_new(Node_List_ *node_list) {
-        alignas(T) auto buffer_ = new std::byte[DPOOLSIZE * CHUNKSIZE];
+        auto buffer_ =
+            new (std::align_val_t{alignof(T)}) std::byte[DPOOLSIZE * CHUNKSIZE];
         auto curr = buffer_;
         for (int i = 0; i < DPOOLSIZE - 1; ++i) {
             reinterpret_cast<Node_ *>(curr)->next =

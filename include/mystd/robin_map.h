@@ -28,7 +28,9 @@ private:
         const KVpair &value() const {
             return *std::launder(reinterpret_cast<const KVpair *>(kvpair_));
         }
-        std::ptrdiff_t distance_from_ideal() { return distance_from_ideal_; }
+        std::ptrdiff_t distance_from_ideal() const {
+            return distance_from_ideal_;
+        }
         void clear() {
             if (!empty()) {
                 destroy();
@@ -169,7 +171,7 @@ private:
     std::pair<const_iterator, bool> find_help(const Key &key,
                                               std::size_t hash) {
         auto ibucket = bucket_from_hash(hash);
-        std::size_t distance = 0;
+        std::ptrdiff_t distance = 0;
         while (distance <= buckets_[ibucket].distance_from_ideal()) {
             if (key == key_select{}(buckets_[ibucket].value())) {
                 return std::make_pair(robin_iterator<true>(&buckets_[ibucket]),
